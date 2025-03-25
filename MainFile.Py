@@ -6,14 +6,14 @@ Purpouse : Data pipeline for Amazon Customer Review Analysis
 
 # Import the required libraries
 import pandas as pd
-import requests
-from io import BytesIO
 
-#Get the data from the link
-url='https://docs.google.com/spreadsheets/d/1B2fF-9GKOk3HBb6I40kNnfbaNOaTeDJjhht-iDSz9r0/edit?usp=sharing'
+# get the data and store it in a data set
+df=pd.read_excel(r'C:\Users\HP\Desktop\Guvi\Amazon-Product-Review-Analysis\Amazon-Product-Review-Analysisustomer-Analysis\aws_data.xlsx')
 
-response=requests.get(url)
+# Start the data cleaning and preparation activity
+# Remove the duplicates
+df_no_duplicates=df.drop_duplicates()
 
-data=pd.read_parquet(BytesIO(response.content),engine='pyarrow')
+# Drop null values
+df_no_null=df_no_duplicates.dropna()
 
-print(data.head())
